@@ -7,8 +7,6 @@
     
     <!-- SolaimanLipi Web Font Link -->
     <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
-    <!-- Extra Romantic Cursive Font for English Name -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -47,11 +45,11 @@
             text-align: center;
             width: 90%;
             max-width: 480px;
-            padding: 25px 20px;
+            padding: 30px 20px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.18);
             backdrop-filter: blur(12px);
-            border-radius: 20px;
+            border-radius: 25px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 105, 180, 0.2);
             animation: fadeIn 1.5s ease-in-out;
         }
@@ -61,41 +59,105 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* Polaroid Photo Frame */
-        .polaroid {
-            background: #fff;
-            padding: 12px 12px 20px 12px;
-            border-radius: 6px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            transform: rotate(-2deg);
-            transition: all 0.4s ease;
-            margin: 0 auto 20px auto;
-            width: 220px;
+        /* --- Image & Balloon Container --- */
+        .img-section {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 182, 193, 0.5);
+        /* Circular Image with Glowing Ring */
+        .img-circle-wrapper {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, #ffd700, #ff1493, #00efff);
+            animation: rotateGlow 3s infinite ease-in-out alternate;
+            margin: 0 auto;
         }
 
-        .polaroid img {
+        .img-circle-wrapper img {
             width: 100%;
-            height: 220px;
+            height: 100%;
+            border-radius: 50%;
             object-fit: cover;
-            border-radius: 3px;
+            border: 4px solid #fff;
+            display: block;
         }
 
-        .polaroid-caption {
-            font-family: 'Great Vibes', cursive;
-            color: #222;
-            font-size: 1.8rem;
-            margin-top: 8px;
+        @keyframes rotateGlow {
+            0% { box-shadow: 0 0 20px #ffd700; transform: scale(1); }
+            50% { box-shadow: 0 0 35px #ff1493; transform: scale(1.03); }
+            100% { box-shadow: 0 0 20px #00efff; transform: scale(1); }
+        }
+
+        /* --- Animated Balloon Beside Image --- */
+        .balloon-wrapper {
+            position: absolute;
+            top: -10px;
+            right: -45px;
+            animation: floatBalloon 3s ease-in-out infinite alternate;
+            z-index: 15;
+        }
+
+        .balloon {
+            width: 90px;
+            height: 105px;
+            background: radial-gradient(circle at 35% 30%, #ff758c, #ff1493, #b30047);
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: inset -5px -5px 12px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        /* Balloon Knot */
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid #b30047;
+        }
+
+        /* Balloon String */
+        .balloon-string {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            width: 2px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.6);
+            transform: translateX(-50%);
+        }
+
+        /* Text Inside Balloon */
+        .balloon-text {
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.25;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            padding: 5px;
+        }
+
+        @keyframes floatBalloon {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-18px) rotate(5deg); }
         }
 
         /* SolaimanLipi Headings */
         h1 {
             font-family: 'SolaimanLipi', sans-serif;
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             color: #ffd700;
             text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
             margin-bottom: 5px;
@@ -106,8 +168,8 @@
             display: inline-block;
             background: rgba(255, 215, 0, 0.15);
             border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 4px 15px;
-            border-radius: 15px;
+            padding: 4px 18px;
+            border-radius: 20px;
             font-size: 1.1rem;
             color: #ffb6c1;
             margin-bottom: 20px;
@@ -180,14 +242,26 @@
     <canvas id="fireworksCanvas"></canvas>
 
     <div class="wrapper">
-        <!-- Polaroid Photo Frame -->
-        <div class="polaroid">
-            <!-- আপনার ছবির ফাইল নেম 'maya.jpg' দিন -->
-            <img src="https://i.ibb.co/TMZpWSNT/IMG-20260802-135501.jpg" alt="Maya">
-            <div class="polaroid-caption">Maya ❤️</div>
+        
+        <!-- Profile Image with Animated Balloon -->
+        <div class="img-section">
+            <div class="img-circle-wrapper">
+                <!-- আপনার ছবির ফাইল নেম 'maya.jpg' নিশ্চিত করুন -->
+                <img src="https://i.ibb.co/TMZpWSNT/IMG-20260802-135501.jpg" alt="Maya">
+            </div>
+
+            <!-- Floating Balloon -->
+            <div class="balloon-wrapper">
+                <div class="balloon">
+                    <div class="balloon-text">
+                        Happy<br>Birthday<br>Maya ❤️
+                    </div>
+                </div>
+                <div class="balloon-string"></div>
+            </div>
         </div>
 
-        <h1>শুভ জন্মদিন, মায়া!</h1>
+        <h1>শুভ জন্মদিন, মায়া! ❤️</h1>
         <div class="date-badge">✨ ৯ই আগস্ট ✨</div>
 
         <p class="subtitle">আমার জীবনের সবচেয়ে প্রিয় মানুষটির জন্য রইলো একরাশ ভালোবাসা ও শুভকামনা! 🥰</p>
@@ -272,7 +346,7 @@
             ctx.fillStyle = 'rgba(5, 0, 8, 0.2)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            if (Math.random() < 0.08) { // Frequency of fireworks
+            if (Math.random() < 0.08) {
                 createFirework();
             }
 
@@ -299,7 +373,6 @@
                 letter.style.display = 'none';
             } else {
                 letter.style.display = 'block';
-                // Trigger extra burst of fireworks on click
                 for(let i = 0; i < 5; i++) createFirework();
                 
                 music.play().catch(e => console.log("Audio file auto-play prevented or missing."));
