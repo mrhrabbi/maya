@@ -119,19 +119,7 @@
       animation-delay: 0.5s;
     }
 
-    /* ফ্লোটিং অ্যানিমেশন (Float Up Animation) */
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      50% {
-        transform: translateY(-60vh) rotate(12deg);
-      }
-      100% {
-        transform: translateY(-120vh) rotate(-12deg);
-        opacity: 0.8;
-      }
+   
     }
         /* Glassmorphic Card Container */
         .card-container {
@@ -286,6 +274,20 @@
             0% { transform: translateY(100vh) rotate(0deg) scale(0.6); opacity: 1; }
             100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
+
+         /* ফ্লোটিং অ্যানিমেশন (Float Up Animation) */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-60vh) rotate(12deg);
+      }
+      100% {
+        transform: translateY(-120vh) rotate(-12deg);
+        opacity: 0.8;
+      }
     </style>
 </head>
 <body>
