@@ -1,198 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Happy Birhtday Maya</title>
-   <link href="https://banglawebfonts.pages.dev/css/ekush.css" rel="stylesheet"/>
-  <style>
-    body {
-  margin: 0;
-  background: #020202;
-  cursor: crosshair;
-}
-canvas{display:block}
-     body {
-  font-family: 'Ekush', serif;
-  font-weight: 400;
-  font-style: normal;
-}
-h1 {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-family: 'Ekush' serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 4em;
-  font-align: center;
-  -webkit-user-select: none;
-  user-select: none;
-}
-  </style>
-</head>
-<body>
-   <h1>শুভ জন্মদিন<br/>মায়া</h1>
-<canvas id="birthday"></canvas>
-  <script>// helper functions
-const PI2 = Math.PI * 2
-const random = (min, max) => Math.random() * (max - min + 1) + min | 0
-const timestamp = _ => new Date().getTime()
-
-// container
-class Birthday {
-  constructor() {
-    this.resize()
-
-    // create a lovely place to store the firework
-    this.fireworks = []
-    this.counter = 0
-
-  }
-  
-  resize() {
-    this.width = canvas.width = window.innerWidth
-    let center = this.width / 2 | 0
-    this.spawnA = center - center / 4 | 0
-    this.spawnB = center + center / 4 | 0
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Maya! ❤️</title>
     
-    this.height = canvas.height = window.innerHeight
-    this.spawnC = this.height * .1
-    this.spawnD = this.height * .5
-    
-  }
-  
-  onClick(evt) {
-     let x = evt.clientX || evt.touches && evt.touches[0].pageX
-     let y = evt.clientY || evt.touches && evt.touches[0].pageY
-     
-     let count = random(3,5)
-     for(let i = 0; i < count; i++) this.fireworks.push(new Firework(
-        random(this.spawnA, this.spawnB),
-        this.height,
-        x,
-        y,
-        random(0, 260),
-        random(30, 110)))
-          
-     this.counter = -1
-     
-  }
-  
-  update(delta) {
-    ctx.globalCompositeOperation = 'hard-light'
-    ctx.fillStyle = `rgba(20,20,20,${ 7 * delta })`
-    ctx.fillRect(0, 0, this.width, this.height)
+    <!-- SolaimanLipi & English Fonts & Confetti Library -->
+    <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    ctx.globalCompositeOperation = 'lighter'
-    for (let firework of this.fireworks) firework.update(delta)
-
-    // if enough time passed... create new new firework
-    this.counter += delta * 3 // each second
-    if (this.counter >= 1) {
-      this.fireworks.push(new Firework(
-        random(this.spawnA, this.spawnB),
-        this.height,
-        random(0, this.width),
-        random(this.spawnC, this.spawnD),
-        random(0, 360),
-        random(30, 110)))
-      this.counter = 0
-    }
-
-    // remove the dead fireworks
-    if (this.fireworks.length > 1000) this.fireworks = this.fireworks.filter(firework => !firework.dead)
-
-  }
-}
-
-class Firework {
-  constructor(x, y, targetX, targetY, shade, offsprings) {
-    this.dead = false
-    this.offsprings = offsprings
-
-    this.x = x
-    this.y = y
-    this.targetX = targetX
-    this.targetY = targetY
-
-    this.shade = shade
-    this.history = []
-  }
-  update(delta) {
-    if (this.dead) return
-
-    let xDiff = this.targetX - this.x
-    let yDiff = this.targetY - this.y
-    if (Math.abs(xDiff) > 3 || Math.abs(yDiff) > 3) { // is still moving
-      this.x += xDiff * 2 * delta
-      this.y += yDiff * 2 * delta
-
-      this.history.push({
-        x: this.x,
-        y: this.y
-      })
-
-      if (this.history.length > 20) this.history.shift()
-
-    } else {
-      if (this.offsprings && !this.madeChilds) {
-        
-        let babies = this.offsprings / 2
-        for (let i = 0; i < babies; i++) {
-          let targetX = this.x + this.offsprings * Math.cos(PI2 * i / babies) | 0
-          let targetY = this.y + this.offsprings * Math.sin(PI2 * i / babies) | 0
-
-          birthday.fireworks.push(new Firework(this.x, this.y, targetX, targetY, this.shade, 0))
-
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-      }
-      this.madeChilds = true
-      this.history.shift()
-    }
-    
-    if (this.history.length === 0) this.dead = true
-    else if (this.offsprings) { 
-        for (let i = 0; this.history.length > i; i++) {
-          let point = this.history[i]
-          ctx.beginPath()
-          ctx.fillStyle = 'hsl(' + this.shade + ',100%,' + i + '%)'
-          ctx.arc(point.x, point.y, 1, 0, PI2, false)
-          ctx.fill()
-        } 
-      } else {
-      ctx.beginPath()
-      ctx.fillStyle = 'hsl(' + this.shade + ',100%,50%)'
-      ctx.arc(this.x, this.y, 1, 0, PI2, false)
-      ctx.fill()
-    }
+        body {
+            background: linear-gradient(135deg, #0f0c20 0%, #2b102f 50%, #4a1236 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'SolaimanLipi', sans-serif; /* সোলাইমান লিপি ফন্ট সেট করা হলো */
+            overflow-x: hidden;
+            padding: 20px;
+            color: #fff;
+        }
 
-  }
-}
+        /* Glassmorphic Card Container */
+        .card-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 40px 25px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 51, 102, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: containerAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-let canvas = document.getElementById('birthday')
-let ctx = canvas.getContext('2d')
+        /* Photo Frame at Top */
+        .photo-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px auto;
+        }
 
-let then = timestamp()
+        .photo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff3366, #ff85a2, #ffd1dc, #ff3366);
+            background-size: 400%;
+            z-index: -1;
+            animation: glowingBorder 6s linear infinite;
+        }
 
-let birthday = new Birthday
-window.onresize = () => birthday.resize()
-document.onclick = evt => birthday.onClick(evt)
-document.ontouchstart = evt => birthday.onClick(evt)
+        .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: transform 0.5s ease;
+        }
 
-  ;(function loop(){
-  	requestAnimationFrame(loop)
+        .photo-wrapper img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
 
-  	let now = timestamp()
-  	let delta = now - then
+        .crown-icon {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.2rem;
+            animation: bounce 2s infinite;
+        }
 
-    then = now
-    birthday.update(delta / 1000)
-  	
+        /* Title Animation */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ff85a2, #ffffff, #ff3366);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px rgba(255, 133, 162, 0.5);
+            animation: floatText 3s ease-in-out infinite;
+        }
 
-  })()</script>
+        .subtitle {
+            font-family: 'SolaimanLipi', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Wish Message Box */
+        .wish-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 25px;
+        }
+
+        .wish-box p {
+            font-family: 'SolaimanLipi', sans-serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #ffe4e8;
+        }
+
+        /* Celebrate Button */
+        .btn {
+            background: linear-gradient(45deg, #ff3366, #ff6584);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-family: 'SolaimanLipi', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 51, 102, 0.6);
+        }
+
+        /* Floating Animation Elements */
+        .floating-element {
+            position: fixed;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 7s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes glowingBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes containerAppear {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-7px); }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.6); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ব্যাকগ্রাউন্ডে হ্যাপি বার্থডে টিউন -->
+    <audio id="bgMusic" autoplay loop preload="auto">
+        <source src="https://ia801503.us.archive.org/15/items/happy-birthday-instrumental-piano/Happy%20Birthday%20Instrumental%20Piano.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="card-container">
+        <!-- মায়ার ছবি -->
+        <div class="photo-wrapper">
+            <span class="crown-icon">👑</span>
+            <img src="maya.jpg" id="mayaPhoto" alt="Maya">
+        </div>
+
+        <h1>Happy Birthday Maya!</h1>
+        <p class="subtitle">✨ আমার জীবনের সবচেয়ে সুন্দর মায়াবতীকে... ✨</p>
+
+        <div class="wish-box">
+            <p>
+                "শুভ জন্মদিন মায়া! 🎂❤️<br><br>
+                তোমার চোখ দুটোতে যেমন পুরো পৃথিবীর সমস্ত মায়া লুকিয়ে আছে, তোমার হাসিতে ঠিক তেমনই আমার সব সুখ জমা। ঈশ্বর তোমার জীবনকে ভালোবাসা ও আনন্দে ভরিয়ে দিক। সারাজীবন এভাবেই পাশে থেকো!"
+            </p>
+        </div>
+
+        <button class="btn" onclick="celebrate()">উৎসব শুরু হোক! 🎉</button>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+
+        function playAudio() {
+            music.play().catch(err => {
+                console.log("Autoplay blocked, waiting for touch/click.");
+            });
+        }
+
+        window.onload = function() {
+            triggerConfetti();
+            createHearts();
+            playAudio();
+        };
+
+        // স্ক্রিনে যেকোনো জায়গায় প্রথম টাচ/ক্লিক করলে গান চলতে শুরু করবে
+        document.body.addEventListener('click', function() {
+            if (music.paused) { music.play(); }
+        }, { once: true });
+
+        document.body.addEventListener('touchstart', function() {
+            if (music.paused) { music.play(); }
+        }, { once: true });
+
+        function celebrate() {
+            triggerConfetti();
+            if (music.paused) { music.play(); }
+            alert("Happy Birthday My Love! ❤️✨\nতুমি আমার জীবনের সবচেয়ে সুন্দর উপহার!");
+        }
+
+        function triggerConfetti() {
+            var count = 250;
+            var defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 30, startVelocity: 60 });
+            fire(0.2, { spread: 70 });
+            fire(0.35, { spread: 120, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 130, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 130, startVelocity: 45 });
+        }
+
+        function createHearts() {
+            const symbols = ['❤️', '💖', '✨', '🌸', '👑', '💕'];
+            setInterval(() => {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                element.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                element.style.fontSize = (Math.random() * 18 + 14) + 'px';
+                document.body.appendChild(element);
+
+                setTimeout(() => {
+                    element.remove();
+                }, 7000);
+            }, 350);
+        }
+    </script>
 </body>
 </html>
