@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Maya! ❤️</title>
+    <title>শুভ জন্মদিন মায়া! ❤️</title>
     
-    <!-- SolaimanLipi & English Fonts & Confetti Library -->
+    <!-- SolaimanLipi Web Font Link -->
     <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+    <!-- Extra Romantic Cursive Font for English Name -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         * {
@@ -18,230 +18,292 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f0c20 0%, #2b102f 50%, #4a1236 100%);
+            background-color: #050008;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'SolaimanLipi', sans-serif; /* সোলাইমান লিপি ফন্ট সেট করা হলো */
-            overflow-x: hidden;
-            padding: 20px;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
             color: #fff;
-        }
-
-
-        /* Glassmorphic Card Container */
-        .card-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 30px;
-            padding: 40px 25px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 51, 102, 0.3);
+            overflow-x: hidden;
             position: relative;
-            z-index: 10;
-            animation: containerAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Photo Frame at Top */
-        .photo-wrapper {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px auto;
-        }
-
-        .photo-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: -6px;
-            right: -6px;
-            bottom: -6px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff3366, #ff85a2, #ffd1dc, #ff3366);
-            background-size: 400%;
-            z-index: -1;
-            animation: glowingBorder 6s linear infinite;
-        }
-
-        .photo-wrapper img {
+        /* Fullscreen Fireworks Canvas */
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid #ffffff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transition: transform 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .photo-wrapper img:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
-
-        .crown-icon {
-            position: absolute;
-            top: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.2rem;
-            animation: bounce 2s infinite;
-        }
-
-        /* Title Animation */
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            background: linear-gradient(45deg, #ff85a2, #ffffff, #ff3366);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
-            text-shadow: 0 0 20px rgba(255, 133, 162, 0.5);
-            animation: floatText 3s ease-in-out infinite;
-        }
-
-        .subtitle {
-            font-family: 'SolaimanLipi', sans-serif;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Wish Message Box */
-        .wish-box {
+        /* Card Wrapper */
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 480px;
+            padding: 25px 20px;
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
             border-radius: 20px;
-            padding: 22px;
-            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 105, 180, 0.2);
+            animation: fadeIn 1.5s ease-in-out;
         }
 
-        .wish-box p {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Polaroid Photo Frame */
+        .polaroid {
+            background: #fff;
+            padding: 12px 12px 20px 12px;
+            border-radius: 6px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transform: rotate(-2deg);
+            transition: all 0.4s ease;
+            margin: 0 auto 20px auto;
+            width: 220px;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 182, 193, 0.5);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        .polaroid-caption {
+            font-family: 'Great Vibes', cursive;
+            color: #222;
+            font-size: 1.8rem;
+            margin-top: 8px;
+        }
+
+        /* SolaimanLipi Headings */
+        h1 {
+            font-family: 'SolaimanLipi', sans-serif;
+            font-size: 2.2rem;
+            color: #ffd700;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 4px 15px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            color: #ffb6c1;
+            margin-bottom: 20px;
+        }
+
+        p.subtitle {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styling */
+        .letter-btn {
+            background: linear-gradient(45deg, #ff1493, #ff4500);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
             font-family: 'SolaimanLipi', sans-serif;
             font-size: 1.15rem;
-            line-height: 1.8;
-            color: #ffe4e8;
-        }
-
-        /* Celebrate Button */
-        .btn {
-            background: linear-gradient(45deg, #ff3366, #ff6584);
-            color: white;
-            border: none;
-            padding: 14px 35px;
-            font-family: 'SolaimanLipi', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 50px;
+            font-weight: bold;
+            border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.4);
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
             transition: all 0.3s ease;
-            width: 100%;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(255, 51, 102, 0.6);
+        .letter-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 20, 147, 0.9);
         }
 
-        /* Floating Animation Elements */
-        .floating-element {
-            position: fixed;
-            user-select: none;
-            pointer-events: none;
-            animation: floatUp 7s linear infinite;
-            z-index: 1;
+        /* Surprise Letter Box */
+        .message-box {
+            display: none;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+            animation: slideUp 0.6s ease forwards;
         }
 
-        @keyframes glowingBorder {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes containerAppear {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        .message-box p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #fff;
+            margin-bottom: 10px;
         }
 
-        @keyframes floatText {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-7px); }
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0.6); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+        .signature {
+            text-align: right;
+            font-size: 1.25rem;
+            color: #ffd700;
+            margin-top: 15px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-   
+    <!-- Canvas for Animated Background Fireworks -->
+    <canvas id="fireworksCanvas"></canvas>
 
-    <div class="card-container">
-        <!-- মায়ার ছবি -->
-        <div class="photo-wrapper">
-            <span class="crown-icon">👑</span>
-            <img src="https://i.ibb.co/TMZpWSNT/IMG-20260802-135501.jpg" id="mayaPhoto" alt="Maya">
+    <div class="wrapper">
+        <!-- Polaroid Photo Frame -->
+        <div class="polaroid">
+            <!-- আপনার ছবির ফাইল নেম 'maya.jpg' দিন -->
+            <img src="https://i.ibb.co/TMZpWSNT/IMG-20260802-135501.jpg" alt="Maya">
+            <div class="polaroid-caption">Maya ❤️</div>
         </div>
 
-        <h1>Happy Birthday Maya!</h1>
-        <p class="subtitle">✨ আমার জীবনের সবচেয়ে সুন্দর মায়াবতীকে... ✨</p>
+        <h1>শুভ জন্মদিন, মায়া!</h1>
+        <div class="date-badge">✨ ৯ই আগস্ট ✨</div>
 
-        <div class="wish-box">
-            <p>
-                "শুভ জন্মদিন মায়া! 🎂❤️<br><br>
-                তোমার চোখ দুটোতে যেমন পুরো পৃথিবীর সমস্ত মায়া লুকিয়ে আছে, তোমার হাসিতে ঠিক তেমনই আমার সব সুখ জমা। ঈশ্বর তোমার জীবনকে ভালোবাসা ও আনন্দে ভরিয়ে দিক। সারাজীবন এভাবেই পাশে থেকো!"
-            </p>
+        <p class="subtitle">আমার জীবনের সবচেয়ে প্রিয় মানুষটির জন্য রইলো একরাশ ভালোবাসা ও শুভকামনা! 🥰</p>
+
+        <button class="letter-btn" onclick="toggleLetter()">বিশেষ বার্তাটি পড়ুন 💌</button>
+
+        <!-- Hidden Letter -->
+        <div class="message-box" id="secretLetter">
+            <p>প্রিয় <b>মায়া</b>,</p>
+            <p>আজকের এই বিশেষ দিনে তোমাকে জানাই আমার হৃদয়ের গভীর থেকে জন্মদিনের অনেক অনেক শুভেচ্ছা! 🌹</p>
+            <p>তুমি আমার জীবনে আসার পর থেকে সবকিছু অনেক সুন্দর হয়ে উঠেছে। ঈশ্বর তোমার জীবনকে সুখ, সমৃদ্ধি আর শান্তিতে ভরিয়ে দিক। খুব শিগগিরই আমরা একসাথে জীবনের নতুন অধ্যায় শুরু করব, সেই অপেক্ষায় রইলাম!</p>
+            <div class="signature">সারাজীবন তোমারই... ❤️</div>
         </div>
-        <button class="btn" onclick="celebrate()">উৎসব শুরু হোক! 🎉</button>
     </div>
 
+    <!-- Background Music (Optional: bg-music.mp3) -->
+    <audio id="bgMusic" src="bg-music.mp3" loop></audio>
+
     <script>
+        // --- Continuous Canvas Fireworks Animation ---
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
 
-        function triggerConfetti() {
-            var count = 250;
-            var defaults = { origin: { y: 0.7 } };
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-            function fire(particleRatio, opts) {
-                confetti(Object.assign({}, defaults, opts, {
-                    particleCount: Math.floor(count * particleRatio)
-                }));
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.radius = Math.random() * 2.5 + 1;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.friction = 0.96;
+                this.gravity = 0.08;
             }
 
-            fire(0.25, { spread: 30, startVelocity: 60 });
-            fire(0.2, { spread: 70 });
-            fire(0.35, { spread: 120, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 130, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 130, startVelocity: 45 });
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.velocity.y += this.gravity;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.015;
+            }
         }
 
-        function createHearts() {
-            const symbols = ['❤️', '💖', '🎈', '🌸', '👑', '💕'];
-            setInterval(() => {
-                const element = document.createElement('div');
-                element.classList.add('floating-element');
-                element.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-                element.style.left = Math.random() * 100 + 'vw';
-                element.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                element.style.fontSize = (Math.random() * 18 + 14) + 'px';
-                document.body.appendChild(element);
+        let particles = [];
+        const colors = ['#ff0055', '#ffdd00', '#00efff', '#ff00ff', '#00ff66', '#ffffff', '#ff9900'];
 
-                setTimeout(() => {
-                    element.remove();
-                }, 7000);
-            }, 350);
+        function createFirework() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * (canvas.height * 0.6);
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            for (let i = 0; i < 45; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 0, 8, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            if (Math.random() < 0.08) { // Frequency of fireworks
+                createFirework();
+            }
+
+            particles.forEach((particle, index) => {
+                if (particle.alpha > 0) {
+                    particle.update();
+                    particle.draw();
+                } else {
+                    particles.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // --- Letter Toggle & Music Function ---
+        function toggleLetter() {
+            const letter = document.getElementById('secretLetter');
+            const music = document.getElementById('bgMusic');
+
+            if (letter.style.display === 'block') {
+                letter.style.display = 'none';
+            } else {
+                letter.style.display = 'block';
+                // Trigger extra burst of fireworks on click
+                for(let i = 0; i < 5; i++) createFirework();
+                
+                music.play().catch(e => console.log("Audio file auto-play prevented or missing."));
+            }
         }
     </script>
 </body>
