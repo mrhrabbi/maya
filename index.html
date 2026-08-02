@@ -30,91 +30,6 @@
         }
 
 
-    /* বেলুন রাখার কন্টেইনার */
-    .balloon-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    /* মূল বেলুনের শেপ */
-    .balloon {
-      position: absolute;
-      bottom: -150px;
-      width: 85px;
-      height: 105px;
-      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-      animation: floatUp 8s ease-in-out infinite;
-    }
-
-    /* বেলুনের নিচের গিঁট (Knot) */
-    .balloon::before {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 10px solid currentColor;
-    }
-
-    /* বেলুনের সুতা (String) */
-    .balloon::after {
-      content: "";
-      position: absolute;
-      bottom: -45px;
-      left: 50%;
-      width: 2px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.6);
-      transform: translateX(-50%);
-    }
-
-    /* আলাদা আলাদা বেলুনের রঙ, পজিশন ও স্পিড */
-    .balloon-1 {
-      left: 10%;
-      background: radial-gradient(circle at 30% 30%, #ff7675, #d63031);
-      color: #d63031;
-      animation-duration: 7s;
-      animation-delay: 0s;
-    }
-
-    .balloon-2 {
-      left: 28%;
-      background: radial-gradient(circle at 30% 30%, #74b9ff, #0984e3);
-      color: #0984e3;
-      animation-duration: 9s;
-      animation-delay: 2s;
-    }
-
-    .balloon-3 {
-      left: 48%;
-      background: radial-gradient(circle at 30% 30%, #55efc4, #00b894);
-      color: #00b894;
-      animation-duration: 6s;
-      animation-delay: 1s;
-    }
-
-    .balloon-4 {
-      left: 68%;
-      background: radial-gradient(circle at 30% 30%, #ffeaa7, #fdcb6e);
-      color: #fdcb6e;
-      animation-duration: 8s;
-      animation-delay: 3s;
-    }
-
-    .balloon-5 {
-      left: 85%;
-      background: radial-gradient(circle at 30% 30%, #a29bfe, #6c5ce7);
-      color: #6c5ce7;
-      animation-duration: 10s;
-      animation-delay: 0.5s;
-    }
-
-   
-    }
         /* Glassmorphic Card Container */
         .card-container {
             background: rgba(255, 255, 255, 0.1);
@@ -268,20 +183,6 @@
             0% { transform: translateY(100vh) rotate(0deg) scale(0.6); opacity: 1; }
             100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
-
-         /* ফ্লোটিং অ্যানিমেশন (Float Up Animation) */
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      50% {
-        transform: translateY(-60vh) rotate(12deg);
-      }
-      100% {
-        transform: translateY(-120vh) rotate(-12deg);
-        opacity: 0.8;
-      }
     </style>
 </head>
 <body>
