@@ -187,10 +187,7 @@
 </head>
 <body>
 
-    <!-- ব্যাকগ্রাউন্ডে হ্যাপি বার্থডে টিউন -->
-    <audio id="bgMusic" autoplay loop preload="auto">
-        <source src="https://www.mediafire.com/file/cwo0mz10y1pz758/white_records-happy-birthday-to-you-background-music-for-the-holiday-jazz-version-316322.mp3" type="audio/mpeg">
-    </audio>
+   
 
     <div class="card-container">
         <!-- মায়ার ছবি -->
@@ -208,46 +205,10 @@
                 তোমার চোখ দুটোতে যেমন পুরো পৃথিবীর সমস্ত মায়া লুকিয়ে আছে, তোমার হাসিতে ঠিক তেমনই আমার সব সুখ জমা। ঈশ্বর তোমার জীবনকে ভালোবাসা ও আনন্দে ভরিয়ে দিক। সারাজীবন এভাবেই পাশে থেকো!"
             </p>
         </div>
- <!-- বেলুনের কোড -->
-  <div class="balloon-container">
-    <div class="balloon balloon-1"></div>
-    <div class="balloon balloon-2"></div>
-    <div class="balloon balloon-3"></div>
-    <div class="balloon balloon-4"></div>
-    <div class="balloon balloon-5"></div>
-  </div>
         <button class="btn" onclick="celebrate()">উৎসব শুরু হোক! 🎉</button>
     </div>
 
     <script>
-        const music = document.getElementById('bgMusic');
-
-        function playAudio() {
-            music.play().catch(err => {
-                console.log("Autoplay blocked, waiting for touch/click.");
-            });
-        }
-
-        window.onload = function() {
-            triggerConfetti();
-            createHearts();
-            playAudio();
-        };
-
-        // স্ক্রিনে যেকোনো জায়গায় প্রথম টাচ/ক্লিক করলে গান চলতে শুরু করবে
-        document.body.addEventListener('click', function() {
-            if (music.paused) { music.play(); }
-        }, { once: true });
-
-        document.body.addEventListener('touchstart', function() {
-            if (music.paused) { music.play(); }
-        }, { once: true });
-
-        function celebrate() {
-            triggerConfetti();
-            if (music.paused) { music.play(); }
-            alert("Happy Birthday My Love! ❤️✨\nতুমি আমার জীবনের সবচেয়ে সুন্দর উপহার!");
-        }
 
         function triggerConfetti() {
             var count = 250;
